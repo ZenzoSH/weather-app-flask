@@ -1,99 +1,59 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>weather</title>
-  <!-- Latest compiled and minified CSS -->
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
-  <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-  <!-- Latest compiled JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <!--Fonts used from google fonts-->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300&display=swap" rel="stylesheet">
-
-  <style>
-    * {
-      font-family: 'Prompt', sans-serif;
-    }
-
-    div.row {
-      margin-top: 20px;
-    }
-
-    .navbar-brand {
-      font-size: 55px;
-    }
-    .footer {
-      color: white;
-  text-align: center;
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  height: 45px;
-  background-color: #000000
-  
-  }
-  </style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body>
-
-  <nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand">What's the Weather like ??</a>
-
-  </nav>
-
-  <center class="row">
-    <form method="post" class="col-md-6 col-md-offset-3">
-      <div class="input-group">
-        <input type="text" class="form-control" name="city" placeholder="Search" autocomplete="off">
-        <div class="input-group-btn">
-          <button class="btn btn-dark" type="submit">
-            <i class="glyphicon glyphicon-search"></i>
-          </button>
+<body class="{% if data %}weather-{{data.overall_weather|lower}}{% endif %}">
+    <div class="container">
+        <div class="search-box">
+            <form method="POST">
+                <input type="text" name="city" placeholder="Enter city name" required>
+                <button type="submit">Check Weather</button>
+            </form>
         </div>
-        <form>
-  </center>
-  <div class="row">
-    {% if data.country and data.weather and data.temperature and data.icon and data.feels_like %}
 
-    <div class="col-md-6 col-md-offset-3">
-      <figure>
-        <img class="img" src="http://openweathermap.org/img/w/{{data.icon}}.png" alt="" width=100px height="100px">
-      </figure>
-      <h3><strong>PLACE :</strong>&nbsp&nbsp{{city}} , {{data.country}}</h3>
-      <h4><strong>WEATHER :</strong> &nbsp&nbsp{{data.weather}}, {{data.overall_weather}}</h4>
-      <h4> <strong>TEMPERATURE :</strong>&nbsp&nbsp {{data.temperature}}°C , but feels like {{data.feels_like}}°C</h4>
-      <h4> <strong>SUNRISE :</strong> &nbsp&nbsp {{data.sunrise}} A.M</h4>
-      <h4> <strong>SUNSET :</strong>&nbsp&nbsp {{data.sunset}} P.M</h4>
-      <h4> <strong>HUMIDITY :</strong>&nbsp&nbsp {{data.humidity}} %</h4>
-  </div>
-    {% endif %}
-  </div>
-  <div class="footer">
-    <p style="padding: 7px;">Made By ZenzoSH  <a href="https://github.com/ZenzoSH" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
-      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-    </svg></a></p>
-    
-  </div>
-  
+        {% if data %}
+        <div class="weather-card">
+            <div class="weather-header">
+                <h1>{{city}}</h1>
+                <span class="country">{{data.country}}</span>
+            </div>
+            
+            <div class="weather-main">
+                <img src="http://openweathermap.org/img/w/{{data.icon}}.png" alt="{{data.weather}}">
+                <div class="temp-group">
+                    <div class="temperature">{{data.temperature}}°C</div>
+                    <div class="weather-desc">{{data.weather}}</div>
+                </div>
+            </div>
 
-
-
+            <div class="weather-grid">
+                <div class="grid-item">
+                    <span class="label">Feels Like</span>
+                    <span class="value">{{data.feels_like}}°C</span>
+                </div>
+                <div class="grid-item">
+                    <span class="label">Humidity</span>
+                    <span class="value">{{data.humidity}}%</span>
+                </div>
+                <div class="grid-item">
+                    <span class="label">Sunrise</span>
+                    <span class="value">{{data.sunrise}}</span>
+                </div>
+                <div class="grid-item">
+                    <span class="label">Sunset</span>
+                    <span class="value">{{data.sunset}}</span>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
 </body>
 
 </html>
