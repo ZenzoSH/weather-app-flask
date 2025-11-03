@@ -56,8 +56,8 @@ def weather():
         "overall_weather": str(data1["weather"][0]["main"].capitalize()),
         "temperature": str(data1["main"]["temp"]),
         "feels_like": str(data1["main"]["feels_like"]),
-       "sunrise": datetime.fromtimestamp(data1["sys"].get("sunrise")).strftime('%H:%M') if data1["sys"].get("sunrise") else "N/A",
-       "sunset": datetime.fromtimestamp(data1["sys"].get("sunset")).strftime('%H:%M') if data1["sys"].get("sunset") else "N/A",
+     "sunrise": datetime.fromtimestamp(data1["sys"].get("sunrise") + data1["sys"].get("timezone", 0)).strftime('%H:%M') if data1["sys"].get("sunrise") else "N/A",
+     "sunset": datetime.fromtimestamp(data1["sys"].get("sunset") + data1["sys"].get("timezone", 0)).strftime('%H:%M') if data1["sys"].get("sunset") else "N/A",
         "country": data1["sys"]["country"],
         "humidity": str(data1["main"]["humidity"])
     }
