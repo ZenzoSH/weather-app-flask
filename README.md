@@ -5,7 +5,8 @@ A minimalist weather application built with Flask that shows current weather con
 
 [VISIT FLASK APP](https://weather-app-flask-6fbh.onrender.com/)
 
-<img width="824" height="704" alt="image" src="https://github.com/user-attachments/assets/fb412e44-b311-4bec-98e8-918777c27def" />
+<img width="742" height="678" alt="image" src="https://github.com/user-attachments/assets/ae72f0ce-9d0e-47b3-8953-6efa0f57719a" />
+
 
 
 
