@@ -1,7 +1,12 @@
 # Weather App
 
 A minimalist weather application built with Flask that shows current weather conditions for any city.
+
+
 [VISIT FLASK APP](https://weather-app-flask-6fbh.onrender.com/)
+
+<img width="824" height="704" alt="image" src="https://github.com/user-attachments/assets/fb412e44-b311-4bec-98e8-918777c27def" />
+
 
 
 ## Prerequisites
